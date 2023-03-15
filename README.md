@@ -1,5 +1,5 @@
 # ProgrammingProject
 
 # Team Members:
-Peter Farrell \n
+Peter Farrell
 Emma Wijsman
