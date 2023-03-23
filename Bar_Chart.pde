@@ -30,7 +30,7 @@ class BarChart {
   void addData(String flightData) 
   {
     // Split the flight data string into an array
-    String[] flightDataArray = split(flightData, ",");
+    String[] flightDataArray = flightData.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
     // Get the destination city name from the flight data
     String destCityName = flightDataArray[dataPart];
     //String destCityName = flightDataArray[4];
