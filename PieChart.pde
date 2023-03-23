@@ -38,7 +38,7 @@ class PieChart {
       textAlign(CENTER, CENTER);
       lastAngle += radians(data[i]/100*360); //Angle at which the previous slice ended
       fill(#9F2B68); //Text colour
-      textFont(pieChartFont); //Text font initialised in main
+      textFont(font); //Text font initialised in main
       text(labels[i], labelX, labelY); //renders text on screen
     }
   }

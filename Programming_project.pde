@@ -24,8 +24,8 @@ void setup() {
   
   for (int i = 0; i < lines.length; i++) 
   {
-    dataList.add(new Data(lines[i], font));
-    println(dataList.get(i).getReqData("ORIGIN_CITY_NAME"));
+    dataList.add(new Data(10, 10, lines[i], font));
+    //println(dataList.get(i).getReqData("ORIGIN_CITY_NAME"));
   }
   
   //initialises searchbar widget array
@@ -51,7 +51,7 @@ void draw()
     
     //Prints to screen, selected from input from user
     answer = searchBars.get(0).returnAnswer();
-    text(dataList.get(i).getReqData(answer),10,22*i+80);
+    //text(dataList.get(i).getReqData(answer),10,22*i+80);
   }
   
   //draws and updates searchbar contents
