@@ -27,12 +27,13 @@ class Query
   int intValToCheck2 = -1;
   
   int queryType;
+  
   ArrayList<Data> dataList; //list of all flights
   
   ArrayList<Data> result; //list of flights that meet query criteria
   int count; //count of flights that meet query criteria
   
-  //constructor for 1 string queries
+  //constructor for 1 String queries
   public Query (String str1, String searchVal1)
   {
     paramName1 = str1;
@@ -50,7 +51,7 @@ class Query
     count = 0;
   }
   
-  //constructor for 2 string queries
+  //constructor for 2 String queries
   public Query (String str1, String searchVal1, String str2, String searchVal2)
   {
     paramName1 = str1;
@@ -61,7 +62,7 @@ class Query
     count = 0;
   }
   
-  //constructor for 2 INT queries
+  //constructor for 2 int queries
   public Query (String str1, int searchVal1, String str2, int searchVal2)
   {
     paramName1 = str1;
@@ -72,6 +73,7 @@ class Query
     count = 0;
   }
   
+  //constructor for 1 String 1 int queries
   public Query (String str1, String searchVal1, String str2, int searchVal2)
   {
     paramName1 = str1;
