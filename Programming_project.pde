@@ -22,10 +22,10 @@ void setup() {
   
   dataList = new ArrayList<Data>();
   
-  for (int i = 0; i < lines.length; i++) 
+  for (int i = 1; i < lines.length; i++) 
   {
     dataList.add(new Data(10, 10, lines[i], font));
-    //println(dataList.get(i).getReqData("ORIGIN_CITY_NAME"));
+    //println(dataList.get(i).getStrVal("ORIGIN_CITY_NAME"));
   }
   
   //initialises searchbar widget array
@@ -35,8 +35,15 @@ void setup() {
   //example searchbar for all test data
   searchBars.add(new SearchBar(10,40,400,40,font));
   
+  //testing queries
+  Query q = new Query("MKT_CARRIER_FL_NUM", 2, "CRS_DEP_TIME", 800);
+  ArrayList<Data> result = q.run(); //<>//
+  for (int i = 0; i < result.size(); i++)
+  {
+    println(result.get(i).getStrVal("DEST_STATE_ABR"));
+  }
+  println(q.count);
 
-  
 }
 
 void draw() 
@@ -44,7 +51,7 @@ void draw()
   background(20);
   
   for (int i = 1; i < lines.length; i++) 
-  { 
+  {
     
     fill(200);
     textFont(font);
