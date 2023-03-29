@@ -1,3 +1,4 @@
+///made by Peter Farrell 
 ///searchbar usage notes
 
 //when creating a searchbar:
