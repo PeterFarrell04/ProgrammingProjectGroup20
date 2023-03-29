@@ -3,6 +3,10 @@ PFont font;
 PFont fontSmall;
 String[] lines;
 String answer = "";
+Query query;
+int queryResultCount = -1;
+SearchBar querySearchBar = new SearchBar(870,80,400,40,font);
+
 
 
 //initialises searchbar widget array
@@ -32,16 +36,20 @@ void setup() {
   searchBars = new ArrayList<SearchBar>();
   
   
-  //example searchbar for all test data
+  //bar chart search bar
   searchBars.add(new SearchBar(10,40,400,40,font));
   
+  //query search bar
+  
+  searchBars.add(querySearchBar);
+  
   //testing queries
-  Query q = new Query("MKT_CARRIER_FL_NUM", 2, "CRS_DEP_TIME", 800);
+  Query q = new Query("DEST_STATE_ABR", "CA");
   ArrayList<Data> result = q.run(); //<>//
-  for (int i = 0; i < result.size(); i++)
-  {
-    println(result.get(i).getStrVal("DEST_STATE_ABR"));
-  }
+  //for (int i = 0; i < result.size(); i++)
+  //{
+  //  println(result.get(i).getStrVal("DEST_STATE_ABR"));
+  //}
   println(q.count);
 
 }
@@ -49,6 +57,31 @@ void setup() {
 void draw() 
 {
   background(20);
+  
+  // query search bar
+  textSize(30);
+  text("Query [dataColumn;searchVal] : ", 870, 40);
+  text("Count: ", 870, 130);
+  text(queryResultCount, 970, 130);
+  if (querySearchBar.returnAnswer() != "")
+  {
+    String[] queryStrArr = querySearchBar.returnAnswer().split(";");
+    if (queryStrArr.length == 2)
+    {
+      try
+      {
+        int test = Integer.valueOf(queryStrArr[1]);
+        query = new Query(queryStrArr[0], test);
+      }
+      catch (NumberFormatException e)
+      {
+        query = new Query(queryStrArr[0], queryStrArr[1]);
+      }
+      query.run();
+      queryResultCount = query.count;
+    }
+  }
+  
   
   for (int i = 1; i < lines.length; i++) 
   {

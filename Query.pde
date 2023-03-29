@@ -102,7 +102,7 @@ class Query
     {
       case 1:
 
-        for (int i = 1; i < dataList.size(); i++)
+        for (int i = 0; i < dataList.size(); i++)
         {
           if (dataList.get(i).getStrVal(paramName1).equals(strValToCheck1))
           {
@@ -110,10 +110,11 @@ class Query
             count++;
           }
         }
+        break;
         
       case 2:
         
-        for (int i = 1; i < dataList.size(); i++)
+        for (int i = 0; i < dataList.size(); i++)
         {
           if (dataList.get(i).getIntVal(paramName1) == intValToCheck1)
           {
@@ -121,10 +122,11 @@ class Query
             count++;
           }
         }
+        break;
         
       case 3:
         
-        for (int i = 1; i < dataList.size(); i++)
+        for (int i = 0; i < dataList.size(); i++)
         {
           if (dataList.get(i).getStrVal(paramName1).equals(strValToCheck1))
           {
@@ -135,10 +137,11 @@ class Query
             }
           }
         }
+        break;
         
       case 4:
       
-        for (int i = 1; i < dataList.size(); i++)
+        for (int i = 0; i < dataList.size(); i++)
         {
           if (dataList.get(i).getIntVal(paramName1) == intValToCheck1)
           {
@@ -149,10 +152,11 @@ class Query
             }
           }
         }
+        break;
         
       case 5:
       
-        for (int i = 1; i < dataList.size(); i++)
+        for (int i = 0; i < dataList.size(); i++)
         {
           if (dataList.get(i).getStrVal(paramName1).equals(strValToCheck1))
           {
@@ -163,6 +167,7 @@ class Query
             }
           }
         }
+        break;
     }
     
     return result;
