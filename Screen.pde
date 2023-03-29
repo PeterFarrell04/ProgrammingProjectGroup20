@@ -1,22 +1,31 @@
-class Screen
-{
-  int background;
-  Widgets widget;
-  Screen(int background, Widgets widget1)
-  {
-    this.background = background;
-    this.widget = widget1;
+class Screen {
+  ArrayList<Widget> widgets;
+  color backgroundColor;
+  Screen(int backgroundColor) {
+    this.backgroundColor = color(backgroundColor);
+    widgets = new ArrayList<Widget>();
   }
-  void draw()
-  {
-   background(this.background);
-   fill(darkerBlue);
-   noStroke();
-   rect(0,0,SCREENX, 50);
-   fill(transBlue);
-   noStroke();
-   rect(SCREENX*.75, 0, 250, SCREENY);
-   widget.draw();
+
+  void draw() {
+    background(backgroundColor);
+    drawWidgets();
   }
-  
-}
+
+  int getEvent(int mousex, int mousey) {
+    int event = 0;
+    for (Widget widget : widgets) {
+      event = widget.getEvent(mousex, mousey);
+      if (event!=NULL) {
+        return event;
+      }
+    }
+    return event;
+  }
+  void drawWidgets() {
+    for (Widget widget : widgets) {
+      widget.draw();
+    }
+  }
+  void addWidget(Widget widget) {
+    widgets.add(widget);
+  }
