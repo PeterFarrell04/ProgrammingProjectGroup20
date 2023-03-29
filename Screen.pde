@@ -29,4 +29,3 @@ class Screen {
   void addWidget(Widget widget) {
     widgets.add(widget);
   }
-}
