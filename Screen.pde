@@ -15,7 +15,8 @@ class Screen {
     int event = 0;
     for (Widget widget : widgets) {
       event = widget.getEvent(mousex, mousey);
-      if (event!=NULL) {
+      if (event!=NULL) 
+      {
         return event;
       }
     }
@@ -29,3 +30,4 @@ class Screen {
   void addWidget(Widget widget) {
     widgets.add(widget);
   }
+}

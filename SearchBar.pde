@@ -48,6 +48,8 @@ class SearchBar
     fill(255);
     stroke(0); 
     
+    textFont(font);
+    
     
      // draw blinking "|" for user every 20 frames
      timer++;
@@ -135,7 +137,7 @@ class SearchBar
     }else
     {
       isOpen = false;
-      input = "";
+      //input = "";
     }
   }
   
