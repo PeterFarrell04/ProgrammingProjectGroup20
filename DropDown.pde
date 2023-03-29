@@ -1,6 +1,14 @@
+///made by Peter Farrell 
  
- 
- 
+///DropDown usage notes
+//used to make dropdown widget which holds a seperate widget as its 'child'
+//when making a DropDown instance:
+//dropList.add(x,y,name,font,buffer*);
+//*buffer should be the space on the yaxis that the child widget occupies, as buffer determines the height of the box when expanded
+
+//will be updated to accept queries from the user (ie. sort flights by destination: Seattle)
+
+//to see dropdown visuals uncomment line 192 of main
 class DropDown
 {
   float x, y;
