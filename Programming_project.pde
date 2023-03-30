@@ -67,7 +67,7 @@ void setup() {
   dropList.add( new DropDown(dListX,dListY+300,"Cancelled?",font,100));
   
   //testing queries
-  Query q = new Query("MKT_CARRIER_FL_NUM", 2, "CRS_DEP_TIME", 800);
+  Query q = new Query("ORIGIN", "FLL");
   ArrayList<Data> result = q.run(); //<>//
   for (int i = 0; i < result.size(); i++)
   {

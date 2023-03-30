@@ -40,6 +40,7 @@ class Query
     strValToCheck1 = searchVal1;
     queryType = 1;
     count = 0;
+    println(strValToCheck1);
   }
   
   //constructor for 1 int queries
@@ -98,12 +99,23 @@ class Query
   {
     result = new ArrayList<Data>();
     
+    if (paramName1.equals("DEST_CITY_NAME") || paramName1.equals("ORIGIN_CITY_NAME"))
+    {
+      strValToCheck1 = "\"" + strValToCheck1 + "\"";
+    }
+    if (paramName2.equals("DEST_CITY_NAME") || paramName2.equals("ORIGIN_CITY_NAME"))
+    {
+      strValToCheck2 = "\"" + strValToCheck2 + "\"";
+    }
     switch (queryType)
     {
       case 1:
-
+        println("case1");
+        
         for (int i = 0; i < dataList.size(); i++)
         {
+          println(strValToCheck1);
+          println(dataList.get(i).getStrVal(paramName1));
           if (dataList.get(i).getStrVal(paramName1).equals(strValToCheck1))
           {
             result.add(dataList.get(i));
