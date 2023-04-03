@@ -95,7 +95,7 @@ void setup() {
   int dListX = 960;
   int dListY = 200;
   dropList.add( new DropDown(dListX,dListY,"Flight Date",font,60,0));
-  dropList.add( new DropDown(dListX,dListY+50,"Origin",font,60,6));
+  dropList.add( new DropDown(dListX,dListY+50,"Origin",font,60,3));
   dropList.add( new DropDown(dListX,dListY+100,"Destination",font,60,8));
   dropList.add( new DropDown(dListX,dListY+150,"Flight Number",font,60,2));
   dropList.add( new DropDown(dListX,dListY+200,"Departure Time",font,60,12));
@@ -181,30 +181,40 @@ void draw()
       {
         fill(255);
         //text(dataList.get(i).getData(), 10, 20*i+textY);
+        String output = "";
         switch(coarseAnswer)
         {
           case 0:
-          text(dataList.get(i).getStrVal("FL_DATE"), 10, 20*i+textY);
+          output+=dataList.get(i).getStrVal("FL_DATE");
           break;
-          case 6:
-          text(dataList.get(i).getStrVal("ORIGIN_CITY_NAME"), 10, 20*i+textY);
+          case 3:
+          output+=dataList.get(i).getStrVal("ORIGIN_CITY_NAME");
           break;
           case 8:
-          text(dataList.get(i).getStrVal("DEST_CITY_NAME"), 10, 20*i+textY);
+          output+=dataList.get(i).getStrVal("DEST_CITY_NAME");
           break;
           case 2:
-          text(dataList.get(i).getIntVal("MKT_CARRIER_FL_NUM"), 10, 20*i+textY);
+          output+=dataList.get(i).getIntVal("MKT_CARRIER_FL_NUM");
           break;
           case 12:
-          text(dataList.get(i).getIntVal("DEP_TIME"), 10, 20*i+textY);
+          output+="Expected Time: ";
+          output+=dataList.get(i).getIntVal("CRS_DEP_TIME");
+          output+= "              ";
+          output+="Actual Time: ";
+          output+=dataList.get(i).getIntVal("DEP_TIME");
           break;
           case 14:
-          text(dataList.get(i).getIntVal("ARR_TIME"), 10, 20*i+textY);
+          output+="Expected Time: ";
+          output+=dataList.get(i).getIntVal("CRS_ARR_TIME");
+          output+= "              ";
+          output+="Actual Time: ";
+          output+=dataList.get(i).getIntVal("ARR_TIME");
           break;
           default:
-          text(dataList.get(i).getData(), 10, 20*i+textY);
+          output+=dataList.get(i).getData();
           break;
         }
+        text(output, 10, 20*i+textY);
         
       }
     }

@@ -122,7 +122,7 @@ class BarChart {
     case "origin":
     case "origin_city_name":
     case "origin_wac":
-      return 6;
+      return 3;
     case "dest":
     case "destination":
     case "dest_state_abr":
