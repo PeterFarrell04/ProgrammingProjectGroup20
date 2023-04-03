@@ -30,6 +30,7 @@ class heatmap {
   void draw() { // method to draw the heatmap
     
     // draw heatmap
+    stroke(0);
     for (int i = 0; i < data.length; i++) { // iterate over the rows of the data
       for (int j = 0; j < data[i].length; j++) { // iterate over the columns of the data
         // normalize data between 0 and 1, map to a color gradient between red and green, and draw a rectangle for each cell

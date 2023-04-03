@@ -19,9 +19,14 @@ class DropDown
   int index;
   int buffer;
   int exBuffer = 0;
+  int event = 0;
   float boxW,boxH,boxX,boxY;
+  String lastOutput = "";
+  String queryLink = "";
   SearchBar child;
-   DropDown(float x, float y, String title, PFont font, int buffer)
+  Checkbox filterChild;
+  Query q;
+   DropDown(float x, float y, String title, PFont font, int buffer, int event)
    {
      this.x = x;
      this.y = y;
@@ -29,10 +34,52 @@ class DropDown
      this.font = font;
      this.buffer = buffer;
      child = new SearchBar(round(x),round(y+buffer),200,40,font);
+     filterChild = new Checkbox(round(x)-40,round(y)-24, 48,48,100,-1);
+     this.event = event;
+     switch(event)
+     {
+       case 2:
+       queryLink = "MKT_CARRIER_FL_NUM";
+       break;
+       case 6:
+       queryLink = "ORIGIN";
+       break;
+       case 0:
+       queryLink = "FL_DATE";
+       break;
+       case 8:
+       queryLink = "DEST";
+       break;
+       case 12:
+        queryLink = "DEP_TIME";
+        break;
+        case 14:
+        queryLink =  "ARR_TIME";
+        break;
+       default:
+       queryLink = "DEST";
+       break;
+     }
    }
    
    void update()
    {
+     //fine search
+     if (!lastOutput.equals(child.output))
+     {
+       q = new Query(queryLink,child.output);
+       q.run();
+       println(child.output+" "+q.count);
+       lastOutput = child.output;
+     }
+       
+     if (filterChild.link)
+     {
+       coarseAnswer = event;
+     }
+     filterChild.y = round(y)-24+exBuffer;
+     filterChild.draw();
+     
      this.index = dropList.indexOf(this);
      
      exBuffer = 0;
@@ -44,6 +91,7 @@ class DropDown
          
        }
      }
+     
      //println(index + " "+ isOpen);
      
      boxW = 300;
@@ -101,6 +149,8 @@ class DropDown
   
   void mouseIn()
   {
+    filterChild.mouseIn();
+
     if (isOpen)
     {
       child.mouseIn();

@@ -12,7 +12,8 @@ class BarChart {
   PFont font; // Font used for displaying text
   Map<String, Integer> freq; // Map that stores the frequency of each data point
   List<Map.Entry<String, Integer>> top; // List that stores the sorted frequency data
-  int dataPart = getReqData(answer);
+  //int dataPart = getReqData(answer);
+  int dataPart = coarseAnswer;
   int showAmount;
   // Constructor
   BarChart(float x, float y, float width, float height, PFont font, int showAmount)
@@ -31,6 +32,8 @@ class BarChart {
   // Method for adding data to the chart
   void addData(String flightData)
   {
+    if (dataPart >= 0)
+    {
     // Split the flight data string into an array
     String[] flightDataArray = split(flightData, ",");
     // Get the destination city name from the flight data
@@ -44,10 +47,13 @@ class BarChart {
     } else {
       freq.put(destCityName, 1);
     }
+    }
   }
 
   // Method for showing the top n data points on the chart
   void showTop() {
+     if (dataPart >= 0)
+    {
     // Sort the frequency map by value (i.e., the count of each data point)
     top.addAll(freq.entrySet());
     Collections.sort(top, (a, b) -> b.getValue().compareTo(a.getValue()));
@@ -94,6 +100,10 @@ class BarChart {
       // Increment the x position for the next bar
       count++;
       xb += width * 0.826 / showAmount;
+    }
+    }else
+    {
+      text("Sort by a Query first to see a Bar Chart!",250,720/2);
     }
   }
 

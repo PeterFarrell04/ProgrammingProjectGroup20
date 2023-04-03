@@ -5,6 +5,7 @@ class Widget {
   color widgetColor, labelColor, strokeColour;
   PFont widgetFont;
   int coloured = 15;
+  
   Widget(int x, int y, int width, int height, String label, color widgetColor, PFont widgetFont, int event) {
     this.x=x;
     this.y=y;
@@ -14,7 +15,7 @@ class Widget {
     this.event=event;
     this.widgetColor=widgetColor;
     this.widgetFont=widgetFont;
-    labelColor= color(0);
+    labelColor= color(255);
     strokeColour = color(0);
   }
   void draw() {
@@ -22,8 +23,7 @@ class Widget {
     fill(widgetColor);
     rect(x, y, width, height);
     fill(labelColor);
-    textSize(20);
-
+    textFont(font);
     text(label, (x+width/2)-(textWidth(label)/2), y+height-12);
   }
   int getEvent(int mX, int mY) {
