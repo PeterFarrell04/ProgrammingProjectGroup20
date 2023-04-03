@@ -35,7 +35,7 @@ class PieChart {
       float labelX = x + cos(lastAngle + radians(data[i]/2)) * diameter/2; //Text x position
       float labelY = y + sin(lastAngle + radians(data[i]/2)) * diameter/2; //Text y position
       
-      textAlign(CENTER, CENTER);
+      //textAlign(CENTER, CENTER);
       lastAngle += radians(data[i]/100*360); //Angle at which the previous slice ended
       fill(#9F2B68); //Text colour
       textFont(font); //Text font initialised in main

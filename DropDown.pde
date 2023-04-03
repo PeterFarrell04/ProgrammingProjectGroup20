@@ -8,7 +8,7 @@
 
 //will be updated to accept queries from the user (ie. sort flights by destination: Seattle)
 
-//to see dropdown visuals uncomment line 192 of main
+//to see dropdown visuals uncomment line 83 of main
 class DropDown
 {
   float x, y;

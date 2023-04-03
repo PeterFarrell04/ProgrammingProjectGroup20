@@ -1,3 +1,7 @@
+//Made by Luke Boylan 
+//Scroll Bar
+//
+
 class scrollBar
 {
   int boxWidth;

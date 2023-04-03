@@ -16,6 +16,7 @@ class heatmap {
   String[] monthLabels = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"}; // labels for the columns (months)
   String[] cityLabels; // array of city/town labels for the rows
   PFont font; // font for the labels
+  color strokeColour;
 
   heatmap(int[][] data, int x, int y, int cellSize, PFont font, String[] cityLabels) { // constructor to initialize the object with a font and city/town labels
     this.data = data;
@@ -49,7 +50,7 @@ class heatmap {
     textSize(14); // set the font size to 14
     textFont(font); // set the font for the labels
     for (int i = 0; i < monthLabels.length; i++) { // iterate over the month labels
-      text(monthLabels[i], x + i * cellSize + cellSize/2, y - 20); // draw the label centered above each column
+       text(monthLabels[i], x + i * cellSize + cellSize/2, y - 20); // draw the label centered above each column
     }
 
     // draw row labels (cities/towns)
@@ -59,6 +60,7 @@ class heatmap {
     for (int i = 0; i < cityLabels.length; i++) { // iterate over the city/town labels
       text(cityLabels[i], x - 10, y + i * cellSize + cellSize/2); // draw the label to the left of each row
     }
+    textAlign(0);    //fixes query text alignment
   }
   float maxValue() { // helper method to find the maximum value in the data
     float maxVal = data[0][0]; // assume the first value is the maximum
