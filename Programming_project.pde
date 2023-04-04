@@ -7,6 +7,7 @@ final int RESETSEARCH=5;
 
 
 ArrayList<Data> dataList;
+ArrayList<Data> currentDataList;
 PFont font;
 PFont fontSmall;
 String[] lines;
@@ -41,6 +42,7 @@ void setup() {
   lines = loadStrings("flights2k(1).csv");
   
   dataList = new ArrayList<Data>();
+  currentDataList = dataList;
   
   
   
@@ -175,8 +177,14 @@ void draw()
     pageTitle = "Raw Information of Flights";
     strokeWeight(1);
     textSize(20);
+    if (dataList.size() == 0)
+    {
+      fill(255);
+      text("There are no valid flights with your queries! (Reset Search)",10,100);
+    }
     for (int i = 0; i < dataList.size(); i++) 
     {
+      
       if (20*i+80 < 670) 
       {
         fill(255);
@@ -330,7 +338,6 @@ void mousePressed()
     selectedScreen = 3;
     break;
     case RESETSEARCH:
-    selectedScreen = 0;
     ResetCoarseSearch();
     ResetFineSearch();
     coarseAnswer = -1;
@@ -383,6 +390,14 @@ void ResetCoarseSearch()
 }
 void ResetFineSearch()
 {
+  dataList = currentDataList;
+  for (DropDown d : dropList) 
+  {
+     d.child.output = "";
+     d.child.input = "";
+     d.lastOutput = "";
+  }
+  
   /*for (DropDown d : dropList) 
   {
      //d.child.answer = "";

@@ -28,7 +28,7 @@ class Query
   
   int queryType;
   
-  ArrayList<Data> dataList; //list of all flights
+  //ArrayList<Data> dataList; //list of all flights
   
   ArrayList<Data> result; //list of flights that meet query criteria
   int count; //count of flights that meet query criteria
@@ -87,11 +87,11 @@ class Query
   
   //initialization block to get list of all flights
   {
-    dataList = new ArrayList<Data>();
-    for (int i = 1; i < lines.length; i++) 
-    {
-      dataList.add(new Data(10, 10, lines[i], font));
-    }
+    //dataList = new ArrayList<Data>();
+    //for (int i = 1; i < lines.length; i++) 
+   // {
+    //  dataList.add(new Data(10, 10, lines[i], font));
+    //}
   }
   
   //method to run queries based on type

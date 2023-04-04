@@ -70,7 +70,13 @@ class SearchBar
      if (!isOpen)
      {
        //draw text when not in use
+       if (output.equals(""))
+       {
        text("search...",x+buffer,y);
+       }else
+       {
+         text(output,x+buffer,y);
+       }
      }else
      {
        //draw text when in use

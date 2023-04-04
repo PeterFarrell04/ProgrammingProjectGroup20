@@ -41,7 +41,7 @@ class DropDown
        case 2:
        queryLink = "MKT_CARRIER_FL_NUM";
        break;
-       case 6:
+       case 3:
        queryLink = "ORIGIN";
        break;
        case 0:
@@ -67,10 +67,21 @@ class DropDown
      //fine search
      if (!lastOutput.equals(child.output))
      {
-       q = new Query(queryLink,child.output);
-       q.run();
-       println(child.output+" "+q.count);
-       lastOutput = child.output;
+       if (event == 2 || event == 12 || event == 14)
+       {
+         int integerOutput = Integer.valueOf(child.output);
+         q = new Query(queryLink,integerOutput);
+         dataList = q.run();
+         println(child.output+" "+q.count);
+         lastOutput = child.output;
+       }else
+       {
+         q = new Query(queryLink,child.output);
+         dataList = q.run();
+         println(child.output+" "+q.count);
+         lastOutput = child.output;
+       }
+       
      }
        
      if (filterChild.link)
