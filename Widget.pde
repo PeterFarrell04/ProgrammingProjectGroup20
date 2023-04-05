@@ -26,8 +26,11 @@ class Widget {
     textFont(font);
     text(label, (x+width/2)-(textWidth(label)/2), y+height-12);
   }
-  int getEvent(int mX, int mY) {
+  int getEvent(int mX, int mY, Widget widget) {
 
+      if(widget == widget6)
+        if(mY>y && mY<y+height && scrolling)
+        return event;
     if (mX>x && mX < x+width && mY >y && mY <y+height) {
       return event;
     } else {

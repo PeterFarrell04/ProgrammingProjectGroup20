@@ -4,6 +4,7 @@ final int BUTTON2=2;
 final int BUTTON3=3;
 final int BUTTON4=4;
 final int RESETSEARCH=5;
+final int SCROLLBAR=6;
 
 
 ArrayList<Data> dataList;
@@ -18,6 +19,11 @@ int queryResultCount = -1;
 SearchBar querySearchBar;
 heatmap heatMap;
 DropOutWindow optionWindow;
+scrollBar scroll;
+boolean scrolling = false;
+
+ Screen screen1, screen2, screen3, screen4;
+ Widget widget1, widget2, widget3, widget4, widget5, widget6;
 
 //initialises searchbar widget array
 //ArrayList<SearchBar> searchBars;
@@ -47,6 +53,9 @@ void setup() {
   
   
   optionWindow = new DropOutWindow(880,60,500,600,180);
+  //scrollBar(int boxWidth, int boxHeight, int barWidth, int barHeight, int boxColour, int barColour,
+  //int barX, int barY, int boxX, int boxY)
+  scroll = new scrollBar(15,600,150,875,65);
 
    // create some random data for the heatmap
   int[][] data = new int[5][12];
@@ -94,7 +103,7 @@ void setup() {
   
   
   //creation of dropdown queries
-  int dListX = 960;
+  int dListX = 980;
   int dListY = 200;
   dropList.add( new DropDown(dListX,dListY,"Flight Date",font,60,0));
   dropList.add( new DropDown(dListX,dListY+50,"Origin",font,60,3));
@@ -104,7 +113,7 @@ void setup() {
   dropList.add( new DropDown(dListX,dListY+250,"Arrival Time",font,60,15));
   
   //testing queries
- // Query q = new Query("ORIGIN", "FLL");
+  //Query q = new Query("ORIGIN", "FLL");
   //ArrayList<Data> result = q.run(); //<>//
   //for (int i = 0; i < result.size(); i++)
   //{
@@ -113,14 +122,13 @@ void setup() {
   //println(q.count);
   
   
-  Screen screen1, screen2, screen3, screen4;
-  Widget widget1, widget2, widget3, widget4, widget5;
 
   widget1 = new Widget(5, 670, 300, 40, "Raw Information", color(128, 128, 128), font, BUTTON1);
   widget2 = new Widget(310, 670, 300, 40, "Bar-Chart", color(128, 128, 128), font, BUTTON2);
   widget3 = new Widget(615, 670, 300, 40, "Pie-Chart", color(128, 128, 128), font, BUTTON3);
   widget4 = new Widget(920, 670, 300, 40, "Heatmap" , color(128, 128, 128), font, BUTTON4);
-  widget5 = new Widget(950, 120, 300, 40, "Reset Search" , color(200, 0, 0), font, RESETSEARCH);
+  widget5 = new Widget(970, 120, 300, 40, "Reset Search" , color(200, 0, 0), font, RESETSEARCH);
+  widget6 = new Widget(877,77,11,50,"",color(175), font, SCROLLBAR);
 
   // passing in background colour to screen
   screen1 = new Screen(20);
@@ -129,6 +137,7 @@ void setup() {
   screen1.addWidget(widget3);
   screen1.addWidget(widget4);
   screen1.addWidget(widget5);
+  screen1.addWidget(widget6);
 
   screen2 = new Screen(20);
   screen2.addWidget(widget1);
@@ -160,7 +169,6 @@ void setup() {
 
 void draw() 
 {
-  
   pageTitle = "";
   screens.get(selectedScreen).draw();
   fill(180);
@@ -186,8 +194,6 @@ void draw()
     for (int i = 0; i < dataList.size(); i++) 
     {
       
-      if (20*i+80 < 670) 
-      {
         fill(255);
         //text(dataList.get(i).getData(), 10, 20*i+textY);
         String output = "";
@@ -223,9 +229,21 @@ void draw()
           output+=dataList.get(i).getData();
           break;
         }
+        if(20*i+textY>0 && 20*i+textY <740)
         text(output, 10, 20*i+textY);
         
-      }
+    }
+    fill(0);
+    rect(870,60,700,605);
+    fill(180);
+    rect(-10,-10,1300,70);
+    fill(0);
+    rect(0,665,1300,300);
+    Screen screen = screens.get(selectedScreen);
+    scroll.draw();
+    for (Widget widget : screen.widgets)
+    {
+      widget.draw();
     }
     break;
     
@@ -381,6 +399,7 @@ void mousePressed()
     coarseAnswer = -1;
     fineAnswer = "";
     break;
+    
   }
   //allows searchbar to detect mouseInput
   //for (SearchBar b : searchBars) 
@@ -411,13 +430,40 @@ void mouseMoved() {
   Screen screen = screens.get(selectedScreen);
 
   for (Widget widget : screen.widgets) {
-    event = widget.getEvent(mouseX, mouseY);
+    event = widget.getEvent(mouseX, mouseY, widget);
     if (event!= NULL) {
       widget.strokeColour = color(255);
     } else {
       widget.strokeColour = color(0);
     }
   }
+}
+
+void mouseDragged() //<>//
+{ //<>//
+  int event; //<>//
+  Screen screen = screens.get(selectedScreen); //<>//
+
+  for (Widget widget : screen.widgets) {
+    event = widget.getEvent(mouseX, mouseY, widget);
+    if ((event!= NULL && event == SCROLLBAR)||(scrolling && event == SCROLLBAR)) {
+        scrolling = true;
+        widget.y=mouseY-(widget.height/2); //<>//
+        if(widget.y<=77)
+        widget.y = 77;
+        if(widget.y>=scroll.boxHeight-3)
+        widget.y = scroll.boxHeight+2;
+        // to do; make it so that the amount the text is displaced on the y axis changes dynamically
+        //  to the full length of the scroll bar; bigger the number of data, more y is displaced along bar
+        textY =(160-widget.y);
+        
+    }
+  }
+}
+
+void mouseReleased()
+{
+  scrolling = false;
 }
 void ResetCoarseSearch()
 {

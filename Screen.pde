@@ -8,13 +8,15 @@ class Screen {
 
   void draw() {
     background(backgroundColor);
+    fill(0);
+    rect(0,665,1300,300);
     drawWidgets();
   }
 
   int getEvent(int mousex, int mousey) {
     int event = 0;
     for (Widget widget : widgets) {
-      event = widget.getEvent(mousex, mousey);
+      event = widget.getEvent(mousex, mousey, widget);
       if (event!=NULL) 
       {
         return event;
