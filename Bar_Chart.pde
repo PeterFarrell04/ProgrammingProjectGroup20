@@ -15,6 +15,7 @@ class BarChart {
   //int dataPart = getReqData(answer);
   int dataPart = coarseAnswer;
   int showAmount;
+   String destCityNameOrig = "";
   // Constructor
   BarChart(float x, float y, float width, float height, PFont font, int showAmount)
   {
@@ -27,17 +28,27 @@ class BarChart {
     this.freq = new HashMap<String, Integer>();
     this.top = new ArrayList<Map.Entry<String, Integer>>();
     this.showAmount = showAmount;
+   
+
   }
 
   // Method for adding data to the chart
-  void addData(String flightData)
+  void addData(Data data)
   {
     if (dataPart >= 0)
     {
     // Split the flight data string into an array
-    String[] flightDataArray = split(flightData, ",");
+    //String[] flightDataArray = split(flightData, ",");
+    String name = getDataName(dataPart);
+    String destCityName = data.getStrVal(name);
+    if (destCityName.equals("error"))
+    {
+      int destNum = data.getIntVal(name);
+      destCityName = String.valueOf(destNum);
+    }
+    
     // Get the destination city name from the flight data
-    String destCityName = flightDataArray[dataPart];
+    //String destCityName = flightDataArray[dataPart];
     //String destCityName = flightDataArray[4];
     // If the destination city name is already in the frequency map, increment its count
     if (freq.containsKey(destCityName))
@@ -130,20 +141,41 @@ class BarChart {
     case "dest_wac":
       return 10;
     case "crs_dep_time":
-      return 11;
-    case "dep_time":
       return 12;
-    case "crs_arr_time":
+    case "dep_time":
       return 13;
-    case "arr_time":
+    case "crs_arr_time":
       return 14;
-    case "cancelled":
+    case "arr_time":
       return 15;
-    case "diverted":
+    case "cancelled":
       return 16;
-    case "distance":
+    case "diverted":
       return 17;
+    case "distance":
+      return 18;
     }
     return 8;
+  }
+}
+
+String getDataName(int dP)
+{
+  switch (dP)
+  {
+    case 2:
+       return "MKT_CARRIER_FL_NUM";
+       case 3:
+       return "ORIGIN";
+       case 0:
+       return "FL_DATE";
+       case 8:
+       return "DEST";
+       case 13:
+       return "CRS_DEP_TIME";
+       case 15:
+       return "CRS_ARR_TIME";
+       default:
+       return "DEST";
   }
 }

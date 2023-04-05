@@ -50,11 +50,11 @@ class DropDown
        case 8:
        queryLink = "DEST";
        break;
-       case 12:
-        queryLink = "DEP_TIME";
+       case 13:
+        queryLink = "CRS_DEP_TIME";
         break;
-        case 14:
-        queryLink =  "ARR_TIME";
+        case 15:
+        queryLink =  "CRS_ARR_TIME";
         break;
        default:
        queryLink = "DEST";
@@ -67,7 +67,7 @@ class DropDown
      //fine search
      if (!lastOutput.equals(child.output))
      {
-       if (event == 2 || event == 12 || event == 14)
+       if (event == 2 || event == 13 || event == 15)
        {
          int integerOutput = Integer.valueOf(child.output);
          q = new Query(queryLink,integerOutput);

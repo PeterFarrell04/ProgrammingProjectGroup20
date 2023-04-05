@@ -20,7 +20,7 @@ heatmap heatMap;
 DropOutWindow optionWindow;
 
 //initialises searchbar widget array
-ArrayList<SearchBar> searchBars;
+//ArrayList<SearchBar> searchBars;
 ArrayList<DropDown> dropList;
 ArrayList<Screen> screens;
 int selectedScreen;
@@ -30,6 +30,7 @@ BarChart chart;
 
 int coarseAnswer = -1;
 String fineAnswer;
+makeCount countTest;
 
 void setup() {
   
@@ -79,12 +80,12 @@ void setup() {
   }
   
   //initialises searchbar widget array
-  searchBars = new ArrayList<SearchBar>();
+  //searchBars = new ArrayList<SearchBar>();
   dropList = new ArrayList<DropDown>();
   
   
   //example searchbar for all test data
-  searchBars.add(new SearchBar(-1000,40,400,40,font));
+  //searchBars.add(new SearchBar(-1000,40,400,40,font));
   
   
   
@@ -100,8 +101,8 @@ void setup() {
   dropList.add( new DropDown(dListX,dListY+50,"Origin",font,60,3));
   dropList.add( new DropDown(dListX,dListY+100,"Destination",font,60,8));
   dropList.add( new DropDown(dListX,dListY+150,"Flight Number",font,60,2));
-  dropList.add( new DropDown(dListX,dListY+200,"Departure Time",font,60,12));
-  dropList.add( new DropDown(dListX,dListY+250,"Arrival Time",font,60,14));
+  dropList.add( new DropDown(dListX,dListY+200,"Departure Time",font,60,13));
+  dropList.add( new DropDown(dListX,dListY+250,"Arrival Time",font,60,15));
   
   //testing queries
  // Query q = new Query("ORIGIN", "FLL");
@@ -155,26 +156,27 @@ void setup() {
   screens.add(screen2);
   screens.add(screen3);
   screens.add(screen4);
-
+  
 }
 
 void draw() 
 {
   
+  pageTitle = "";
   screens.get(selectedScreen).draw();
   fill(180);
   stroke(0);
   rect(-10,-10,1300,70);
   fill(0);
   //textSize(40);
-  text(pageTitle,10,35);
+  
   
   //optionWindow.draw();
 
   switch(selectedScreen)
   {
   case 0:
-    pageTitle = "Raw Information of Flights";
+    pageTitle += "Raw Information of Flights";
     strokeWeight(1);
     textSize(20);
     if (dataList.size() == 0)
@@ -204,14 +206,14 @@ void draw()
           case 2:
           output+=dataList.get(i).getIntVal("MKT_CARRIER_FL_NUM");
           break;
-          case 12:
+          case 13:
           output+="Expected Time: ";
           output+=dataList.get(i).getIntVal("CRS_DEP_TIME");
           output+= "              ";
           output+="Actual Time: ";
           output+=dataList.get(i).getIntVal("DEP_TIME");
           break;
-          case 14:
+          case 15:
           output+="Expected Time: ";
           output+=dataList.get(i).getIntVal("CRS_ARR_TIME");
           output+= "              ";
@@ -229,18 +231,26 @@ void draw()
     break;
     
   case 1:
-    pageTitle = "Bar Chart of Flight Information";
+    pageTitle += "Bar Chart of Flight Information";
     // create and show the bar chart
     strokeWeight(1);
     chart = new BarChart(50, height-100, width+200, 400, fontSmall, 20);
-    for (String line : lines) {
-      chart.addData(line);
+    //for (String line : lines) {
+    //  chart.addData(line);
+    //}
+    fill(255);
+    if (dataList.size() > 0)
+    {
+    for (int i = 0; i < dataList.size(); i++)
+    {
+      chart.addData(dataList.get(i));
     }
     chart.showTop();
+    }
     break;
     
    case 2:
-   pageTitle = "Pie Chart of Flight Information";
+   pageTitle += "Pie Chart of Flight Information";
     float[] data = {20, 30, 10, 40};
     String[] labels = {"Slice 1", "Slice 2", "Slice 3", "Slice 4"};
     PieChart pieChart = new PieChart(data, labels, width/4, height/2, 400);
@@ -250,14 +260,43 @@ void draw()
     break;
     
   case 3:
-  pageTitle = "Heatmap of Flight Information";
+  pageTitle += "Heatmap of Flight Information";
     strokeWeight(1);
     heatMap.draw();
     fill(255);
     break;
    
   }
+  textSize(24);
+  fill(0);
   
+  ///Dynamic Title
+  
+  if (!dropList.get(1).child.output.equals(""))
+  {
+    pageTitle += " from " + dropList.get(1).child.output;
+  }
+  if (!dropList.get(2).child.output.equals(""))
+  {
+    pageTitle += " to " + dropList.get(2).child.output;
+  }
+  if (!dropList.get(3).child.output.equals(""))
+  {
+    pageTitle += " with flight no: " + dropList.get(3).child.output;
+  }
+  if (!dropList.get(4).child.output.equals(""))
+  {
+    pageTitle += ", with dep time: " + dropList.get(4).child.output;
+  }
+  if (!dropList.get(5).child.output.equals(""))
+  {
+    pageTitle += ", with arrival time: " + dropList.get(5).child.output;
+  }
+  if (!dropList.get(0).child.output.equals(""))
+  {
+    pageTitle += ", flown on: " + dropList.get(0).child.output;
+  }
+  text(pageTitle,10,35);
   
    // query search bar
   //textSize(30);
@@ -292,25 +331,25 @@ void draw()
     textFont(font);
     
     //Prints to screen, selected from input from user
-    answer = searchBars.get(0).returnAnswer();
+    //answer = searchBars.get(0).returnAnswer();
     //text(dataList.get(i).getReqData(answer),10,22*i+80);
   }
   
    // create bar chart only in screen 2
   if (selectedScreen == 1) {
-    chart = new BarChart(50, height-100, width+200, 400, fontSmall, 20);
-    for (String line : lines) {
-      chart.addData(line);
-    }
-    chart.showTop();
+    //chart = new BarChart(50, height-100, width+200, 400, fontSmall, 20);
+    //for (String line : lines) {
+     // chart.addData(line);
+    //}
+    //chart.showTop();
   }
  
   
   //draws and updates searchbar contents
-  for (SearchBar b : searchBars) 
-  {
-    b.update();
-  }
+  //for (SearchBar b : searchBars) 
+  //{
+  //  b.update();
+  //}
   for (DropDown d : dropList) 
   {
     d.update();
@@ -322,7 +361,9 @@ void draw()
 
 void mousePressed()
 {
-
+  countTest = new makeCount(dataList,coarseAnswer);
+  countTest.update();
+  
   int event = screens.get(selectedScreen).getEvent(mouseX, mouseY);
   switch(event) {
   case BUTTON1:
@@ -345,10 +386,10 @@ void mousePressed()
     break;
   }
   //allows searchbar to detect mouseInput
-  for (SearchBar b : searchBars) 
-  {
-     b.mouseIn();
-  }
+  //for (SearchBar b : searchBars) 
+  //{
+  //   b.mouseIn();
+  //}
   for (DropDown d : dropList) 
   {
      d.mouseIn();
@@ -358,10 +399,10 @@ void mousePressed()
 void keyPressed()
 {
   //allows searchbar to detect keys
-  for (SearchBar b : searchBars) 
-  {
-     b.keyIn();
-  }
+  //for (SearchBar b : searchBars) 
+  //{
+  //   b.keyIn();
+  //}
   for (DropDown d : dropList) 
   {
      d.keyIn();
@@ -398,8 +439,4 @@ void ResetFineSearch()
      d.lastOutput = "";
   }
   
-  /*for (DropDown d : dropList) 
-  {
-     //d.child.answer = "";
-  }*/
 }
