@@ -30,7 +30,6 @@ BarChart chart;
 
 int coarseAnswer = -1;
 String fineAnswer;
-makeCount countTest;
 
 void setup() {
   
@@ -361,8 +360,6 @@ void draw()
 
 void mousePressed()
 {
-  countTest = new makeCount(dataList,coarseAnswer);
-  countTest.update();
   
   int event = screens.get(selectedScreen).getEvent(mouseX, mouseY);
   switch(event) {
