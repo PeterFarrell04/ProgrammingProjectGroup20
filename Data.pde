@@ -100,7 +100,7 @@ class Data {
     this.CANCELLEDstring = flightDataArray[15];
     if (this.CANCELLEDstring != "")
     {
-      this.CANCELLED = Integer.valueOf(flightDataArray[15]);
+      //this.CANCELLED = Integer.valueOf(flightDataArray[15]); // for some reason these 3 prevent bigger data files from loading in?
     }
     else
     {
@@ -109,16 +109,16 @@ class Data {
     this.DIVERTEDstring = flightDataArray[16];
     if (this.DIVERTEDstring != "")
     {
-      this.DIVERTED = Integer.valueOf(flightDataArray[16]);
+      //this.DIVERTED = Integer.valueOf(flightDataArray[16]);
     }
     else
     {
       this.DIVERTED = -1;
     }
-    this.DISTANCEstring = flightDataArray[17];
+    //this.DISTANCEstring = flightDataArray[17];
     if (this.DISTANCEstring != "")
     {
-      this.DISTANCE = Integer.valueOf(flightDataArray[17]);
+      //this.DISTANCE = Integer.valueOf(flightDataArray[17]);
     }
     else
     {

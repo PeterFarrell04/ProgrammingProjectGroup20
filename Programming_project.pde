@@ -36,16 +36,16 @@ BarChart chart;
 
 int coarseAnswer = -1;
 String fineAnswer;
-
+String datafile = ("flights2k(1).csv");
 void setup() {
   
-  //fullScreen();
-  size(1280,720);
-  font = createFont("Calibri", 24);
+  //fullScreen(); //<>//
+  size(1280,720); //<>//
+  font = createFont("Calibri", 24); //<>//
   fontSmall = createFont("Calibri", 12);
   querySearchBar = new SearchBar(900,80,400,40,font);
   //Creates array of strings of the file data
-  lines = loadStrings("flights2k(1).csv");
+  lines = loadStrings(datafile); //<>//
   
   dataList = new ArrayList<Data>();
   currentDataList = dataList;
@@ -169,8 +169,8 @@ void setup() {
 
 void draw() 
 {
-  pageTitle = "";
-  screens.get(selectedScreen).draw();
+  pageTitle = ""; //<>//
+  screens.get(selectedScreen).draw(); //<>//
   fill(180);
   stroke(0);
   rect(-10,-10,1300,70);
@@ -230,7 +230,9 @@ void draw()
           break;
         }
         if(20*i+textY>0 && 20*i+textY <740)
-        text(output, 10, 20*i+textY);
+        {
+        text(output, 10, (float)(20*i+textY));
+        }
         
     }
     fill(0);
@@ -451,11 +453,20 @@ void mouseDragged() //<>//
         widget.y=mouseY-(widget.height/2); //<>//
         if(widget.y<=77)
         widget.y = 77;
-        if(widget.y>=scroll.boxHeight-3)
+        if(widget.y>=scroll.boxHeight)
         widget.y = scroll.boxHeight+2;
         // to do; make it so that the amount the text is displaced on the y axis changes dynamically
         //  to the full length of the scroll bar; bigger the number of data, more y is displaced along bar
-        textY =(160-widget.y);
+        
+        //brute force math
+        if(datafile == "flights_full (1).csv")
+        textY =((1653710-(widget.y*21475.73)));
+        else if(datafile == "flights100k(1).csv")
+        textY =((293410-(widget.y*3809.5)));
+        else if(datafile == "flights10k(1).csv")
+        textY =((29410-(widget.y*380.95)));
+        else if(datafile == "flights2k(1).csv")
+        textY =((5946-(widget.y*76.19)));
         
     }
   }
