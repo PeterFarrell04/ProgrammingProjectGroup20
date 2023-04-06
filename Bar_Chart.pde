@@ -80,11 +80,22 @@ class BarChart {
     // Add labels for the values on the y-axis
     textAlign(RIGHT);
     int numLabels = 5;
+    if (maxCount > 20)
+    {
     for (int i = 0; i < numLabels; i++) {
       float yValue = map(i * maxCount / (numLabels - 1), 0, maxCount, 0, height);
       int roundedValue = round(i * maxCount / (numLabels - 1) / 10) * 10;
       text(roundedValue, x - 5, y - yValue);
       line(x - 3, y - yValue, x + 3, y - yValue);
+    }
+    }else
+    {
+       for (int i = 0; i < numLabels; i++) {
+      float yValue = map(i * maxCount / (numLabels - 1), 0, maxCount, 0, height);
+      int roundedValue = round(i * maxCount / (numLabels - 1) / 1) * 1;
+      text(roundedValue, x - 5, y - yValue);
+      line(x - 3, y - yValue, x + 3, y - yValue);
+    }
     }
 
     // Define the space between bars
