@@ -471,7 +471,10 @@ void draw()
   textFont(font);
   fill(0);
   textAlign(LEFT);
-  text(pageTitle, 10, 35);
+  if (selectedScreen != 3)
+  {
+    text(pageTitle, 10, 35);
+  }
 
   // query search bar
   //textSize(30);
