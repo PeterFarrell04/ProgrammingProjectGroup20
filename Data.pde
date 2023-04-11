@@ -1,3 +1,4 @@
+//Emma Wijsman
 class Data {
   String flightData;
   PFont font;
@@ -100,7 +101,7 @@ class Data {
     this.CANCELLEDstring = flightDataArray[15];
     if (this.CANCELLEDstring != "")
     {
-      //this.CANCELLED = Integer.valueOf(flightDataArray[15]); // for some reason these 3 prevent bigger data files from loading in?
+      this.CANCELLED = Integer.valueOf(flightDataArray[15]); // for some reason these 3 prevent bigger data files from loading in?
     }
     else
     {
@@ -109,16 +110,16 @@ class Data {
     this.DIVERTEDstring = flightDataArray[16];
     if (this.DIVERTEDstring != "")
     {
-      //this.DIVERTED = Integer.valueOf(flightDataArray[16]);
+      this.DIVERTED = Integer.valueOf(flightDataArray[16]);
     }
     else
     {
       this.DIVERTED = -1;
     }
-    //this.DISTANCEstring = flightDataArray[17];
+    this.DISTANCEstring = flightDataArray[17];
     if (this.DISTANCEstring != "")
     {
-      //this.DISTANCE = Integer.valueOf(flightDataArray[17]);
+      this.DISTANCE = Integer.valueOf(flightDataArray[17]);
     }
     else
     {
@@ -146,9 +147,20 @@ class Data {
       case "DEST": return this.DEST;
       case "DEST_CITY_NAME": return this.DEST_CITY_NAME;
       case "DEST_STATE_ABR": return this.DEST_STATE_ABR;
+      case "MKT_CARRIER_FL_NUM": return this.MKT_CARRIER_FL_NUMstring;
+      case "ORIGIN_WAC": return this.ORIGIN_WACstring;
+      case "DEST_WAC": return this.DEST_WACstring;
+      case "CRS_DEP_TIME": return this.CRS_DEP_TIMEstring;
+      case "DEP_TIME": return this.DEP_TIMEstring;
+      case "CRS_ARR_TIME": return this.CRS_ARR_TIMEstring;
+      case "ARR_TIME": return this.ARR_TIMEstring;
+      case "CANCELLED": return this.CANCELLEDstring;
+      case "DIVERTED": return this.DIVERTEDstring;
+      case "DISTANCE": return this.DISTANCEstring;
     }
     return "error";
   }
+
   
   //returns int user requested data
   public int getIntVal(String input)

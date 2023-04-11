@@ -68,7 +68,7 @@ void setup() {
   font = createFont("Calibri", 24);
   fontSmall = createFont("Calibri", 12);
   querySearchBar = new SearchBar(900, 80, 400, 40, font);
-  //Creates array of strings of the file data
+  //Creates array of strings of the file data //<>//
   lines = loadStrings(datafile);
 
   dataList = new ArrayList<Data>();
@@ -114,7 +114,7 @@ void setup() {
 
 
   //creation of dropdown queries
-  int dListX = 980;
+  int dListX = 980; //<>//
   int dListY = 200;
   dropList.add( new DropDown(dListX, dListY, "Flight Date", font, 60, 0));
   dropList.add( new DropDown(dListX, dListY+50, "Origin", font, 60, 3));
@@ -304,9 +304,7 @@ void draw()
   case 2:
     onHeatmapScreen = false;
     pageTitle += "Pie Chart of Flight Information";
-    float[] data = {20, 30, 10, 40};
-    String[] labels = {"Slice 1", "Slice 2", "Slice 3", "Slice 4"};
-    PieChart pieChart = new PieChart(data, labels, width/4, height/2, 400);
+    PieChart pieChart = new PieChart(width/4, height/2, 400);
     pieChart.display();
     strokeWeight(1);
     fill(255);
@@ -430,16 +428,16 @@ void draw()
           endIndex += 20;
           if (endIndex > DATA_LENGTH) {
             endIndex = DATA_LENGTH -1;  //Error handling if we go over the array size we re-initialise our end index to be the DATA_LENGTH (the end of the array)
-          }
-          heatmapOverallSize = endIndex - startIndex; //Changes the amount of rows needed for new heatmap
-          heatmapXpos += endCol *35; // increment the current X position
-          dataLength -=20; //Once this reaches zero or below zero we end loop
+          } //<>//
+          heatmapOverallSize = endIndex - startIndex; //Changes the amount of rows needed for new heatmap //<>//
+          heatmapXpos += endCol *35; // increment the current X position //<>//
+          dataLength -=20; //Once this reaches zero or below zero we end loop //<>//
           hm.draw(); //Draws heatmap to screen
         }
       }
     }
 
-    break;
+    break; //<>//
   }
   textSize(24);
   fill(0);

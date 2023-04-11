@@ -1,4 +1,5 @@
-/* query class can currently run queries for
+/* Emma Wijsman
+   query class can run queries for
    -1 String
    -1 int
    -2 String
@@ -28,8 +29,6 @@ class Query
   
   int queryType;
   
-  //ArrayList<Data> dataList; //list of all flights
-  
   ArrayList<Data> result; //list of flights that meet query criteria
   int count; //count of flights that meet query criteria
   
@@ -40,7 +39,6 @@ class Query
     strValToCheck1 = searchVal1;
     queryType = 1;
     count = 0;
-    //println(strValToCheck1);
   }
   
   //constructor for 1 int queries
@@ -85,15 +83,6 @@ class Query
     count = 0;
   }
   
-  //initialization block to get list of all flights
-  {
-    //dataList = new ArrayList<Data>();
-    //for (int i = 1; i < lines.length; i++) 
-   // {
-    //  dataList.add(new Data(10, 10, lines[i], font));
-    //}
-  }
-  
   //method to run queries based on type
   public ArrayList<Data> run()
   {
@@ -114,8 +103,6 @@ class Query
         
         for (int i = 0; i < dataList.size(); i++)
         {
-          //println(strValToCheck1);
-          //println(dataList.get(i).getStrVal(paramName1));
           if (dataList.get(i).getStrVal(paramName1).equals(strValToCheck1))
           {
             result.add(dataList.get(i));

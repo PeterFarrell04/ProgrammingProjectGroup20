@@ -10,20 +10,65 @@
 
 class PieChart {
   float[] data;
-  String[] labels;
+  ArrayList<String> labels;
   int numSlices;
   int x, y;
   int diameter;
   PFont font;
 
-  PieChart(float[] data, String[] labels, int x, int y, int diameter) {
-    this.data = data;
-    this.labels = labels;
-    this.numSlices = data.length;
+  PieChart(int x, int y, int diameter) {
+    
     this.x = x;
     this.y = y;
     this.diameter = diameter;
+    this.labels = getLabels();
+    this.data = getData();
+    this.numSlices = data.length;
     this.font = createFont("Arial", 16);
+  }
+
+  // Emma Wijsman
+  // returns list of all unique values to use as labels
+  ArrayList<String> getLabels()
+  {
+    ArrayList<String> labels = new ArrayList<String>();
+    labels.add(dataList.get(0).getStrVal(getDataName(coarseAnswer)));
+    for (int i = 0; i < dataList.size(); i++)
+    {
+      for (int j = 0; j < labels.size(); j++)
+      {
+        if ( !labels.contains(dataList.get(i).getStrVal(getDataName(coarseAnswer))) )
+        {
+          labels.add(dataList.get(i).getStrVal(getDataName(coarseAnswer)));
+        }
+      }
+    }
+    return labels;
+  }
+  
+  // Emma Wijsman
+  // returns array of floats that count the frequency of each unique value (label)
+  float[] getData()
+  {
+    Query q;
+    
+    ArrayList<Integer> dataCountList = new ArrayList<Integer>();
+    
+    for (int i = 0; i < labels.size(); i++)
+    {
+      q = new Query(getDataName(coarseAnswer), labels.get(i));
+      q.run();
+      dataCountList.add(q.count);
+    }
+    
+    float[] dataCounts = new float[dataCountList.size()];
+    
+    for (int i = 0; i < dataCountList.size(); i++)
+    {
+      dataCounts[i] = dataCountList.get(i);
+    }
+    
+    return dataCounts;
   }
 
   void display() {
@@ -45,7 +90,7 @@ class PieChart {
       textAlign(CENTER, CENTER);
       fill(255); // Text color
       textFont(font);
-      text(labels[i], labelX, labelY); // Render text on screen
+      text(labels.get(i), labelX, labelY); // Render text on screen
       lastAngle += radians(sliceAngle); // Angle at which the previous slice ended
     }
   }
