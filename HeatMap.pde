@@ -88,6 +88,7 @@ class Heatmap {
   public void title(String dataType, int year, PFont font) {
     textAlign(CENTER);
     textFont(font);
+    fill(255);
     text("Heatmap for " + year, x +62, y - 50);
     fill(180);
     text("Data searched for: " + dataType, x +62, y - 70);

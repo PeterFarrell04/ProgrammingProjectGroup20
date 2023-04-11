@@ -169,7 +169,7 @@ void setup() {
   screen4.addWidget(widget2);
   screen4.addWidget(widget3);
   screen4.addWidget(widget4);
-  screen4.addWidget(widget5);
+  //screen4.addWidget(widget5);
   screens = new ArrayList<Screen>();
   screens.add(screen1);
   screens.add(screen2);
@@ -439,8 +439,7 @@ void draw()
 
     break; //<>//
   }
-  textSize(24);
-  fill(0);
+ 
 
   ///Dynamic Title
 
@@ -468,11 +467,15 @@ void draw()
   {
     pageTitle += ", flown on: " + dropList.get(0).child.output;
   }
+  textSize(24);
+  textFont(font);
+  fill(0);
+  textAlign(LEFT);
   text(pageTitle, 10, 35);
 
   // query search bar
   //textSize(30);
-  textFont(font);
+  
   //text("Query [dataColumn;searchVal] : ", 900, 40);
   //text("Count: ", 900, 130);
   //text(queryResultCount, 970, 130);
