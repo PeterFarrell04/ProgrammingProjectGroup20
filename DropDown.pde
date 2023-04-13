@@ -34,7 +34,7 @@ class DropDown
      this.font = font;
      this.buffer = buffer;
      child = new SearchBar(round(x),round(y+buffer),200,40,font);
-     filterChild = new Checkbox(round(x)-40,round(y)-24, 48,48,100,-1);
+     filterChild = new Checkbox(round(x)-40,round(y)-24, 48,48,100);
      this.event = event;
      switch(event)
      {
@@ -102,8 +102,6 @@ class DropDown
          
        }
      }
-     
-     //println(index + " "+ isOpen);
      
      boxW = 300;
      boxH = textSize*2;

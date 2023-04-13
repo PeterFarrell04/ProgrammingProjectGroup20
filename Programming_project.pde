@@ -1,23 +1,11 @@
-final int NULL=0; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
-final int BUTTON1=1;
-final int BUTTON2=2;
-final int BUTTON3=3;
-final int BUTTON4=4;
-final int RESETSEARCH=5;
-final int SCROLLBAR=6;
-
-
-ArrayList<Data> dataList;
+ArrayList<Data> dataList; //<>//
 ArrayList<Data> currentDataList;
 PFont font;
 PFont fontSmall;
 String[] lines;
-String answer = "";
 String pageTitle = "Placeholder Title";
 Query query;
 int queryResultCount = -1;
-SearchBar querySearchBar;
-DropOutWindow optionWindow;
 scrollBar scroll;
 boolean scrolling = false;
 
@@ -25,7 +13,6 @@ Screen screen1, screen2, screen3, screen4;
 Widget widget1, widget2, widget3, widget4, widget5, widget6;
 
 //initialises searchbar widget array
-//ArrayList<SearchBar> searchBars;
 ArrayList<DropDown> dropList;
 ArrayList<Screen> screens;
 int selectedScreen;
@@ -67,7 +54,6 @@ void setup() {
   size(1280, 720);
   font = createFont("Calibri", 24);
   fontSmall = createFont("Calibri", 12);
-  querySearchBar = new SearchBar(900, 80, 400, 40, font);
   //Creates array of strings of the file data //<>//
   lines = loadStrings(datafile);
 
@@ -76,21 +62,7 @@ void setup() {
 
 
 
-  optionWindow = new DropOutWindow(880, 60, 500, 600, 180);
-  //scrollBar(int boxWidth, int boxHeight, int barWidth, int barHeight, int boxColour, int barColour,
-  //int barX, int barY, int boxX, int boxY)
   scroll = new scrollBar(15, 600, 150, 875, 65);
-
-  // create some random data for the heatmap
-  int[][] data = new int[5][12];
-  for (int i = 0; i < data.length; i++) {
-    for (int j = 0; j < data[i].length; j++) {
-      data[i][j] = (int) random(100);
-    }
-  }
-
-  // create a PFont object to use for the labels
-  PFont heatmapfont = createFont("Arial", 14);
 
   for (int i = 1; i < lines.length; i++)
   {
@@ -98,19 +70,10 @@ void setup() {
     //println(dataList.get(i).getStrVal("ORIGIN_CITY_NAME"));
   }
 
-  //initialises searchbar widget array
-  //searchBars = new ArrayList<SearchBar>();
+  //initialises dropdown widget array
   dropList = new ArrayList<DropDown>();
 
 
-  //example searchbar for all test data
-  //searchBars.add(new SearchBar(-1000,40,400,40,font));
-
-
-
-  //query search bar
-
-  //searchBars.add(querySearchBar);
 
 
   //creation of dropdown queries
@@ -122,17 +85,6 @@ void setup() {
   dropList.add( new DropDown(dListX, dListY+150, "Flight Number", font, 60, 2));
   dropList.add( new DropDown(dListX, dListY+200, "Departure Time", font, 60, 13));
   dropList.add( new DropDown(dListX, dListY+250, "Arrival Time", font, 60, 15));
-
-  //testing queries
-  //Query q = new Query("ORIGIN", "FLL");
-  //ArrayList<Data> result = q.run();
-  //for (int i = 0; i < result.size(); i++)
-  //{
-  //println(result.get(i).getStrVal("DEST_STATE_ABR"));
-  //}
-  //println(q.count);
-
-
 
   widget1 = new Widget(5, 670, 300, 40, "Raw Information", color(128, 128, 128), font, BUTTON1);
   widget2 = new Widget(310, 670, 300, 40, "Bar-Chart", color(128, 128, 128), font, BUTTON2);
@@ -207,10 +159,8 @@ void draw()
   stroke(0);
   rect(-10, -10, 1300, 70);
   fill(0);
-  //textSize(40);
 
 
-  //optionWindow.draw();
 
   switch(selectedScreen)
   {
@@ -228,7 +178,6 @@ void draw()
     {
 
       fill(255);
-      //text(dataList.get(i).getData(), 10, 20*i+textY);
       String output = "";
       switch(coarseAnswer)
       {
@@ -287,9 +236,6 @@ void draw()
     // create and show the bar chart
     strokeWeight(1);
     chart = new BarChart(50, height-100, width+200, 400, fontSmall, 20);
-    //for (String line : lines) {
-    //  chart.addData(line);
-    //}
     fill(255);
     if (dataList.size() > 0)
     {
@@ -343,15 +289,8 @@ void draw()
       String[] ColumnData = dataGenerator.getUniqueValues(dataColumn);
       //printArray(originWACs);
       int[] frequency = dataGenerator.countValuesInCSV(ColumnData, dataColumn);
-      //for (int i = 0; i < ColumnData.length; i++) {
-      //  println(i + ": " + ColumnData[i] + ": " + frequency[i]);
-      //}
       // sort the arrays
       dataGenerator.sortArrays(ColumnData, frequency);
-      //// print out the sorted arrays
-      //for (int i = 0; i < ColumnData.length; i++) {
-      //  System.out.println(i+ ": " + ColumnData[i] + ": " + frequency[i]);
-      //}
       int heatmapYpos = height/4; //Controls height of heatmap
       int dataLength = ColumnData.length; //Length of data inputted into heatmap (changes in the program)
       int DATA_LENGTH = ColumnData.length;//Constant length of data inputted into heatmap
@@ -382,13 +321,6 @@ void draw()
           }
         }
       }
-      ////Prints out the entire heatmap data array
-      //for (int i = 0; i < heatMapArray.length; i++) {
-      //  for (int j = 0; j < heatMapArray[i].length; j++) {
-      //    System.out.print(heatMapArray[i][j] + " ");
-      //  }
-      //  System.out.println();
-      //}
 
       //Creates the heatmap
       if (dataLength >= 20) {
@@ -476,58 +408,8 @@ void draw()
     text(pageTitle, 10, 35);
   }
 
-  // query search bar
-  //textSize(30);
-  
-  //text("Query [dataColumn;searchVal] : ", 900, 40);
-  //text("Count: ", 900, 130);
-  //text(queryResultCount, 970, 130);
-  /*if (querySearchBar.returnAnswer() != "")
-   {
-   String[] queryStrArr = querySearchBar.returnAnswer().split(";");
-   if (queryStrArr.length == 2)
-   {
-   try
-   {
-   int test = Integer.valueOf(queryStrArr[1]);
-   query = new Query(queryStrArr[0], test);
-   }
-   catch (NumberFormatException e)
-   {
-   query = new Query(queryStrArr[0], queryStrArr[1]);
-   }
-   query.run();
-   queryResultCount = query.count;
-   }
-   }*/
   textAlign(LEFT);
 
-  for (int i = 1; i < lines.length; i++)
-  {
-
-    fill(200);
-    textFont(font);
-
-    //Prints to screen, selected from input from user
-    //answer = searchBars.get(0).returnAnswer();
-    //text(dataList.get(i).getReqData(answer),10,22*i+80);
-  }
-
-  // create bar chart only in screen 2
-  if (selectedScreen == 1) {
-    //chart = new BarChart(50, height-100, width+200, 400, fontSmall, 20);
-    //for (String line : lines) {
-    // chart.addData(line);
-    //}
-    //chart.showTop();
-  }
-
-
-  //draws and updates searchbar contents
-  //for (SearchBar b : searchBars)
-  //{
-  //  b.update();
-  //}
   for (DropDown d : dropList)
   {
     if (!onHeatmapScreen) {
@@ -562,11 +444,6 @@ void mousePressed()
     fineAnswer = "";
     break;
   }
-  //allows searchbar to detect mouseInput
-  //for (SearchBar b : searchBars)
-  //{
-  //   b.mouseIn();
-  //}
   for (DropDown d : dropList)
   {  
     d.mouseIn();
@@ -575,11 +452,6 @@ void mousePressed()
 
 void keyPressed()
 {
-  //allows searchbar to detect keys
-  //for (SearchBar b : searchBars)
-  //{
-  //   b.keyIn();
-  //}
   for (DropDown d : dropList)
   {
     d.keyIn();

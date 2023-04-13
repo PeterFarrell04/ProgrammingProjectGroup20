@@ -4,7 +4,7 @@ class Checkbox
   int x,y,width,height;
   color widgetColor;
   boolean link = false;
-  Checkbox(int x,int y, int width, int height, color widgetColor, int event)
+  Checkbox(int x,int y, int width, int height, color widgetColor)
   { 
     this.x = x;
     this.y = y;
@@ -23,12 +23,9 @@ class Checkbox
     fill(255);
     if (link)
     {
-      //rect(x+width+GAP+(GAP/2),y+GAP/2,height-GAP,height-GAP);
       rect(x-width/2 -5,y + 4,40,40);
     }
     noStroke();
-    //link ^= true;
-
   }
   boolean mouseOver()
     {
