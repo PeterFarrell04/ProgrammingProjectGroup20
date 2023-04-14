@@ -43,8 +43,7 @@ class Checkbox
     void mouseIn()
     {
       if (mouseOver()) 
-      {
-        
+      {  
         ResetCoarseSearch();
         link ^= true;
       }

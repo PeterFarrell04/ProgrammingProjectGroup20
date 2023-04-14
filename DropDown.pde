@@ -5,10 +5,6 @@
 //when making a DropDown instance:
 //dropList.add(x,y,name,font,buffer*);
 //*buffer should be the space on the yaxis that the child widget occupies, as buffer determines the height of the box when expanded
-
-//will be updated to accept queries from the user (ie. sort flights by destination: Seattle)
-
-//to see dropdown visuals uncomment line 83 of main
 class DropDown
 {
   float x, y;
@@ -69,10 +65,18 @@ class DropDown
      {
        if (event == 2 || event == 13 || event == 15)
        {
-         int integerOutput = Integer.valueOf(child.output);
+         int integerOutput;
+         try
+         {
+           integerOutput = Integer.valueOf(child.output);
+         }catch(NumberFormatException ex)
+         {
+          integerOutput = -1;
+         }
          q = new Query(queryLink,integerOutput);
          dataList = q.run();
          println(child.output+" "+q.count);
+         queryResultCount = q.count;
          lastOutput = child.output;
        }else
        {

@@ -32,7 +32,17 @@ class PieChart {
   ArrayList<String> getLabels()
   {
     ArrayList<String> labels = new ArrayList<String>();
+    try
+    {
     labels.add(dataList.get(0).getStrVal(getDataName(coarseAnswer)));
+    }catch(IndexOutOfBoundsException ex)
+    {
+      if (coarseAnswer >= 0)
+      {
+      fill(255);
+      text("No data matches your search! (Reset Search)", 250, 720/2);
+      }
+    }
     for (int i = 0; i < dataList.size(); i++)
     {
       for (int j = 0; j < labels.size(); j++)
@@ -72,26 +82,33 @@ class PieChart {
   }
 
   void display() {
-    float lastAngle = 0;
-    color[] sliceColors = generateColors(numSlices, color(0, 100, 255), color(255, 100, 0)); // generate a color gradient for the slices
-    for (int i = 0; i < numSlices; i++) {
-      float sliceAngle = 360.0 / sum(data) * data[i]; // calculate the angle for each slice
-      fill(sliceColors[i % sliceColors.length] + 400*i); // Color of slices
-      if (i == numSlices-1) {
-        fill(#573b88);
+    if (coarseAnswer >= 0)
+    {
+      float lastAngle = 0;
+      color[] sliceColors = generateColors(numSlices, color(0, 100, 255), color(255, 100, 0)); // generate a color gradient for the slices
+      for (int i = 0; i < numSlices; i++) {
+        float sliceAngle = 360.0 / sum(data) * data[i]; // calculate the angle for each slice
+        fill(sliceColors[i % sliceColors.length] + 400*i); // Color of slices
+        if (i == numSlices-1) {
+          fill(#573b88);
+        }
+        //noStroke(); // no outline
+        strokeWeight(2);
+        stroke(#541f3f);
+        arc(x, y, diameter, diameter, lastAngle, lastAngle + radians(sliceAngle)); // Slice of pie chart
+        float labelRadius = diameter/1.8; // Distance from center of pie chart to label
+        float labelX = x + cos(lastAngle + radians(sliceAngle / 2)) * labelRadius; // Text x position
+        float labelY = y + sin(lastAngle + radians(sliceAngle / 2)) * labelRadius; // Text y position
+        textAlign(CENTER, CENTER);
+        fill(255); // Text color
+        textFont(font);
+        text(labels.get(i), labelX, labelY); // Render text on screen
+        lastAngle += radians(sliceAngle); // Angle at which the previous slice ended
       }
-      //noStroke(); // no outline
-      strokeWeight(2);
-      stroke(#541f3f);
-      arc(x, y, diameter, diameter, lastAngle, lastAngle + radians(sliceAngle)); // Slice of pie chart
-      float labelRadius = diameter/1.8; // Distance from center of pie chart to label
-      float labelX = x + cos(lastAngle + radians(sliceAngle / 2)) * labelRadius; // Text x position
-      float labelY = y + sin(lastAngle + radians(sliceAngle / 2)) * labelRadius; // Text y position
-      textAlign(CENTER, CENTER);
-      fill(255); // Text color
-      textFont(font);
-      text(labels.get(i), labelX, labelY); // Render text on screen
-      lastAngle += radians(sliceAngle); // Angle at which the previous slice ended
+    }else
+    {
+      fill(255);
+      text("Sort by a Query first to see a Pie Chart!", 250, 720/2);
     }
   }
 

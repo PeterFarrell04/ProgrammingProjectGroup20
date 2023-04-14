@@ -18,6 +18,8 @@ ArrayList<Screen> screens;
 int selectedScreen;
 float textY = 80;
 
+
+
 BarChart chart;
 
 int coarseAnswer = -1;
@@ -244,6 +246,9 @@ void draw()
         chart.addData(dataList.get(i));
       }
       chart.showTop();
+    }else
+    {
+      text("No data matches your search! (Reset Search)", 250, 720/2);
     }
     break;
 
